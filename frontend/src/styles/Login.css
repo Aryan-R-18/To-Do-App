@@ -1,0 +1,109 @@
+/* Root Container */
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Card Styling */
+.login-card {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInSlide 0.5s ease forwards;
+}
+
+/* Animation */
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading */
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333333;
+  margin-bottom: 2rem;
+}
+
+/* Label */
+.login-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #444444;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Input Field */
+.login-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: border 0.3s ease;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+.login-input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+/* Submit Button */
+.login-button {
+  width: 100%;
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #6b21a8;
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Bottom Text */
+.login-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-footer a {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-footer a:hover {
+  color: #5b21b6;
+}

@@ -1,0 +1,70 @@
+/* Home.css */
+
+.landing-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+
+.landing-content {
+  max-width: 900px;
+  text-align: center;
+  margin: 0 auto;
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+.landing-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.landing-subtitle {
+  font-size: 1.25rem;
+  color: #475569;
+  margin-bottom: 2.5rem;
+}
+
+.landing-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.landing-btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.btn-secondary:hover {
+  background-color: #f0f9ff;
+}
