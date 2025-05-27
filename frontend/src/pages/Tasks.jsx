@@ -16,15 +16,20 @@ const Tasks = () => {
   const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    if (user?._id) {
+      fetchTasks();
+    }
+  }, [user]);
 
   const fetchTasks = async () => {
+    if (!user?._id) return;
+    
     try {
       const response = await taskAPI.getTasks(user._id);
-      setTasks(response.list);
+      setTasks(response.list || []);
     } catch (error) {
       toast.error(error.message || 'Failed to fetch tasks');
+      setTasks([]);
     } finally {
       setLoading(false);
     }
@@ -35,7 +40,7 @@ const Tasks = () => {
     try {
       const response = await taskAPI.addTask({
         ...newTask,
-        user: user._id
+        email: user.email
       });
       setTasks(prev => [response.list, ...prev]);
       setNewTask({ title: '', body: '', deadline: '' });
@@ -47,7 +52,7 @@ const Tasks = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await taskAPI.deleteTask(taskId);
+      await taskAPI.deleteTask(taskId, { email: user.email });
       setTasks(prev => prev.filter(task => task._id !== taskId));
       toast.success('Task deleted successfully');
     } catch (error) {

@@ -1,181 +1,354 @@
+/* Root Container */
 .tasks-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem 8rem 1rem;
+  padding: 3rem 1.5rem 10rem 1.5rem;
+  background: linear-gradient(135deg, #F6F0F0 0%, #F2E2B1 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
+.tasks-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(242, 226, 177, 0.3) 0%, transparent 40%),
+              radial-gradient(circle, rgba(213, 199, 163, 0.2) 0%, transparent 40%);
+  background-size: 100% 100%, 100% 100%;
+  animation: moveGradient 10s linear infinite alternate;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+  }
+  100% {
+    background-position: 100% 100%, 0% 0%;
+  }
+}
+
+/* Header */
 .tasks-header {
   text-align: center;
   margin-bottom: 3rem;
+  position: relative;
 }
 
 .tasks-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 2.8rem;
+  font-weight: 800;
+  background: linear-gradient(120deg, #2d3748, #1a202c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .tasks-subtitle {
-  color: #6b7280;
-  font-size: 1.1rem;
+  color: #4a5568;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
+/* Form with Modern Glassmorphism */
 .add-task-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(213, 199, 163, 0.5);
+  padding: 3rem;
+  border-radius: 1.8rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1),
+              0 0 0 1px rgba(213, 199, 163, 0.6);
+  margin-bottom: 4rem;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: fadeSlideIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  position: relative;
+}
+
+.add-task-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1.8rem;
+  background: linear-gradient(45deg, rgba(242, 226, 177, 0.1) 0%, rgba(213, 199, 163, 0.05) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.add-task-form:hover {
+  transform: translateY(-8px) rotateX(3deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(213, 199, 163, 0.8);
+}
+
+.add-task-form:hover::before {
+  opacity: 1;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) rotateX(-15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
 }
 
 .form-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(120deg, #2d3748, #1a202c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
 .form-label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #4b5563;
-  margin-bottom: 0.5rem;
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
   font-size: 1rem;
-  transition: all 0.2s;
+  font-weight: 700;
+  color: #4a5568;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
 }
 
-.form-input:focus {
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
+  border: 2px solid #D5C7A3;
+  border-radius: 1rem;
+  font-size: 1.05rem;
+  background-color: rgba(246, 240, 240, 0.95);
+  color: #2d3748;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-input:focus,
+.form-textarea:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  border-color: #BDB395;
+  box-shadow: 0 0 0 5px rgba(189, 179, 149, 0.3),
+              0 0 15px rgba(189, 179, 149, 0.4);
+  transform: translateY(-3px) scale(1.01);
 }
 
 .form-textarea {
-  min-height: 100px;
+  min-height: 150px;
   resize: vertical;
 }
 
+/* Tasks Grid */
 .tasks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+  perspective: 1500px;
 }
 
+/* Task Card with Modern Glass Effect */
 .task-card {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(213, 199, 163, 0.5);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1),
+              0 0 0 1px rgba(213, 199, 163, 0.5);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #BDB395, #D5C7A3);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .task-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-10px) rotateX(4deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(213, 199, 163, 0.7);
+}
+
+.task-card:hover::before {
+  opacity: 1;
 }
 
 .task-content {
-  padding: 1.5rem;
+  padding: 2.5rem;
 }
 
 .task-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.75rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #251c00;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
 }
 
 .task-body {
-  color: #4b5563;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
 
 .task-deadline {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-bottom: 1.5rem;
+  gap: 0.8rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(242, 226, 177, 0.9);
+  border-radius: 0.8rem;
+  width: fit-content;
 }
 
 .task-deadline svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #4a5568;
 }
 
+/* Task Actions */
 .task-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
+  gap: 1.2rem;
+  padding: 1.5rem 2.5rem;
+  background: rgba(246, 240, 240, 0.9);
+  border-top: 1px solid rgba(213, 199, 163, 0.7);
 }
 
 .task-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: all 0.2s;
+  padding: 0.8rem 1.6rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.task-button:hover::before {
+  transform: translateX(100%);
 }
 
 .edit-button {
-  background: #4f46e5;
-  color: white;
+  background: linear-gradient(135deg, #BDB395, #D5C7A3);
+  color: #4a5568;
+  box-shadow: 0 5px 15px rgba(189, 179, 149, 0.3);
 }
 
 .edit-button:hover {
-  background: #4338ca;
+  background: linear-gradient(135deg, #D5C7A3, #F2E2B1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(189, 179, 149, 0.4);
 }
 
 .delete-button {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.25);
 }
 
 .delete-button:hover {
-  background: #dc2626;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.35);
 }
 
 .cancel-button {
-  background: #6b7280;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
   color: white;
+  box-shadow: 0 5px 15px rgba(107, 114, 128, 0.25);
 }
 
 .cancel-button:hover {
-  background: #4b5563;
+  background: linear-gradient(135deg, #4b5563, #374151);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(107, 114, 128, 0.35);
 }
 
+/* Empty State */
 .empty-state {
   text-align: center;
-  padding: 3rem 1rem;
-  color: #6b7280;
+  padding: 5rem 2rem;
+  color: #4a5568;
+  background: rgba(246, 240, 240, 0.9);
+  border-radius: 1.8rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .empty-state-text {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(120deg, #2d3748, #1a202c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Spinner */
 .loading-spinner {
   display: flex;
   justify-content: center;
@@ -184,12 +357,12 @@
 }
 
 .spinner {
-  width: 3rem;
-  height: 3rem;
-  border: 3px solid #e5e7eb;
-  border-top-color: #4f46e5;
+  width: 4rem;
+  height: 4rem;
+  border: 5px solid rgba(213, 199, 163, 0.4);
+  border-top-color: #BDB395;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes spin {
@@ -201,98 +374,87 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .tasks-container {
-    padding: 1.5rem 1rem 6rem 1rem;
+    padding: 2rem 1rem 7rem 1rem;
   }
 
   .tasks-title {
-    font-size: 2rem;
+    font-size: 2.6rem;
   }
 
   .tasks-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .tasks-container {
-    padding: 1rem 0.75rem 5rem 0.75rem;
+    padding: 1.5rem 0.75rem 6rem 0.75rem;
   }
 
   .tasks-title {
-    font-size: 1.75rem;
-  }
-
-  .tasks-subtitle {
-    font-size: 1rem;
+    font-size: 2.2rem;
   }
 
   .add-task-form {
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .form-title {
-    font-size: 1.25rem;
+    padding: 2.5rem;
   }
 
   .task-card {
-    margin: 0 0.5rem;
+    transform: none !important;
   }
 }
 
 @media (max-width: 640px) {
   .tasks-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .tasks-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .add-task-form {
-    padding: 1rem;
-    margin: 0 0.5rem 1.5rem 0.5rem;
+    padding: 2rem;
   }
 
   .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.8rem;
   }
 
   .task-actions {
-    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .task-button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
+    width: 100%;
   }
 }
 
-/* For very small devices */
 @media (max-width: 360px) {
   .tasks-container {
-    padding: 0.75rem 0.5rem 4rem 0.5rem;
+    padding: 1rem 0.5rem 5rem 0.5rem;
   }
 
   .tasks-title {
-    font-size: 1.25rem;
+    font-size: 1.8rem;
   }
 
   .tasks-subtitle {
-    font-size: 0.875rem;
+    font-size: 1.1rem;
   }
 
   .task-content {
-    padding: 1rem;
+    padding: 2rem;
   }
 
   .task-title {
-    font-size: 1.125rem;
+    font-size: 1.4rem;
   }
 
   .task-body {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
   }
-} 
+}

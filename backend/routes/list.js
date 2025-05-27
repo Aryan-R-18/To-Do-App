@@ -5,23 +5,28 @@ const List = require("../models/list");
 
 //create task 
 
-router.post("/addTask",async(req , res) =>{
+router.post("/addTask", async (req, res) => {
     try {
-        const { title , body , email , deadline} = req.body;
-        const existingUser = await User.findOne({email});
+        const { title, body, email, deadline } = req.body;
+        const existingUser = await User.findOne({ email });
 
-        if(existingUser){
-            const list = new List({title , body , user:existingUser , deadline});
-            await list.save().then(()=> res.status(200).json({list}));
-
-            existingUser.list.push(list);
-            existingUser.save();
+        if (!existingUser) {
+            return res.status(404).json({ message: "User not found" });
         }
+
+        const list = new List({ title, body, user: existingUser._id, deadline });
+        await list.save();
+
+        existingUser.list.push(list._id);
+        await existingUser.save();
+
+        return res.status(200).json({ message: "Task added successfully", list });
     } catch (error) {
-        console.log(error);
-        
+        console.error(error);
+        return res.status(500).json({ message: "Something went wrong", error: error.message });
     }
-})
+});
+
 
 
 

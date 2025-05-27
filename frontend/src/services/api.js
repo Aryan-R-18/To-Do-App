@@ -54,16 +54,26 @@ export const authAPI = {
 
   signin: async (credentials) => {
     try {
-      console.log('Signing in user:', credentials);
-      const response = await api.post('/api/v1/signin', credentials);
+      if (!credentials.email || !credentials.password) {
+        throw { message: 'Email and password are required' };
+      }
+
+      console.log('Signing in user:', { email: credentials.email });
+      const response = await api.post('/api/v1/signin', {
+        email: credentials.email.trim(),
+        password: credentials.password
+      });
+
+      if (!response.data || !response.data.user) {
+        throw { message: 'Invalid response from server' };
+      }
+
       console.log('Signin response:', response);
       return response.data;
     } catch (error) {
       console.error('Signin error:', error.response || error);
-      throw {
-        message: error.response?.data?.message || error.message || 'Login failed',
-        status: error.response?.status
-      };
+      const errorMessage = error.response?.data?.message || error.message || 'Invalid email or password';
+      throw { message: errorMessage };
     }
   },
 };
@@ -103,9 +113,9 @@ export const taskAPI = {
     }
   },
 
-  deleteTask: async (taskId) => {
+  deleteTask: async (taskId, data) => {
     try {
-      const response = await api.delete(`/api/v2/deleteTask/${taskId}`);
+      const response = await api.delete(`/api/v2/deleteTask/${taskId}`, { data });
       return response.data;
     } catch (error) {
       console.error('Delete task error:', error);

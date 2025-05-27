@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+import "../styles/Signup.css";
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -14,67 +15,78 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    
-    const result = await signup(email, username, password);
-    if (result.success) {
-      toast.success('Account created successfully! Please sign in.');
-      navigate('/login');
-    } else {
-      toast.error(result.message);
+    if (loading) return;
+
+    // Basic validation
+    if (!email.trim() || !username.trim() || !password) {
+      toast.error('Please fill in all fields');
+      return;
     }
-    setLoading(false);
+
+    setLoading(true);
+    try {
+      const result = await signup(email.trim(), username.trim(), password);
+      if (result.success) {
+        toast.success('Account created successfully! Please sign in.');
+        navigate('/login');
+      } else {
+        if (result.message.includes('already exists')) {
+          toast.error('An account with this email already exists');
+        } else {
+          toast.error(result.message || 'Registration failed. Please try again');
+        }
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      if (error.message.includes('already exists')) {
+        toast.error('An account with this email already exists');
+      } else {
+        toast.error(error.message || 'Failed to create account. Please try again');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center p-4">
+    <div className="signup-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md"
+        className="signup-card"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Create Account</h2>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <h2 className="signup-title">Create Account</h2>
+        <form onSubmit={handleSubmit} className="signup-form space-y-5">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-              Email
-            </label>
+            <label htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Username
-            </label>
+            <label htmlFor="username">Username</label>
             <input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
-            </label>
+            <label htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
           </div>
@@ -84,15 +96,15 @@ const Signup = () => {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50"
+            className="signup-button"
           >
             {loading ? 'Creating Account...' : 'Sign Up'}
           </motion.button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600">
+        <p className="signup-footer">
           Already have an account?{' '}
-          <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
+          <Link to="/login">
             Sign in
           </Link>
         </p>
