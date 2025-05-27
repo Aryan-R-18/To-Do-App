@@ -8,9 +8,10 @@ const list = require("./routes/list.js");
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://todo-o1lh34b8w-aryan-rs-projects.vercel.app',
+  origin: 'https://todo-ifjnx8kxz-aryan-rs-projects.vercel.app',
   credentials: true
 }));
+
 
 
 // Error handling middleware
