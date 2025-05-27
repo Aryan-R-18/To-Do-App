@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:1000';
+const API_BASE_URL = 'https://todobackend-fuz48a2y3-aryan-rs-projects.vercel.app/api/tasks';
 
 // Create axios instance with base URL
 const api = axios.create({

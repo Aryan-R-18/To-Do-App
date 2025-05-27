@@ -8,9 +8,10 @@ const list = require("./routes/list.js");
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend URL
+  origin: 'https://todo-o1lh34b8w-aryan-rs-projects.vercel.app',
   credentials: true
 }));
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
