@@ -1,13 +1,18 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "To-do app backend deployed on Vercel",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "vercel",
+    "backend",
+    "todo"
+  ],
+  "author": "aryanR",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
