@@ -194,7 +194,7 @@
   }
 
   .landing-buttons {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     gap: 1.2rem;
     width: 100%;
