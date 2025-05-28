@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Tasks from "./pages/Tasks";
+import NewTask from "./pages/NewTask";
 import Landing from "./pages/Landing";
 
 // Protected Route component
@@ -43,6 +44,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Tasks />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/new-task"
+                element={
+                  <ProtectedRoute>
+                    <NewTask />
                   </ProtectedRoute>
                 }
               />

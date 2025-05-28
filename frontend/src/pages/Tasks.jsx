@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { taskAPI } from '../services/api';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import '../styles/tasks.css';
 
 const Tasks = () => {
   const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newTask, setNewTask] = useState({
-    title: '',
-    body: '',
-    deadline: ''
-  });
   const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
@@ -32,21 +28,6 @@ const Tasks = () => {
       setTasks([]);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleAddTask = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await taskAPI.addTask({
-        ...newTask,
-        email: user.email
-      });
-      setTasks(prev => [response.list, ...prev]);
-      setNewTask({ title: '', body: '', deadline: '' });
-      toast.success('Task added successfully');
-    } catch (error) {
-      toast.error(error.message || 'Failed to add task');
     }
   };
 
@@ -91,45 +72,9 @@ const Tasks = () => {
         <p className="tasks-subtitle">Manage your tasks efficiently</p>
       </div>
 
-      <form onSubmit={handleAddTask} className="add-task-form">
-        <h2 className="form-title">Add New Task</h2>
-        <div className="form-group">
-          <label className="form-label">Title</label>
-          <input
-            type="text"
-            className="form-input"
-            value={newTask.title}
-            onChange={(e) => setNewTask(prev => ({ ...prev, title: e.target.value }))}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="form-label">Description</label>
-          <textarea
-            className="form-input form-textarea"
-            value={newTask.body}
-            onChange={(e) => setNewTask(prev => ({ ...prev, body: e.target.value }))}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="form-label">Deadline</label>
-          <input
-            type="datetime-local"
-            className="form-input"
-            value={newTask.deadline}
-            onChange={(e) => setNewTask(prev => ({ ...prev, deadline: e.target.value }))}
-            required
-          />
-        </div>
-        <button type="submit" className="task-button edit-button">
-          Add Task
-        </button>
-      </form>
-
       {tasks.length === 0 ? (
         <div className="empty-state">
-          <p className="empty-state-text">No tasks yet. Add your first task above!</p>
+          <p className="empty-state-text">No tasks yet. Add your first task below!</p>
         </div>
       ) : (
         <div className="tasks-grid">
@@ -211,6 +156,10 @@ const Tasks = () => {
           ))}
         </div>
       )}
+
+      <Link to="/new-task" className="add-task-button">
+        Add New Task
+      </Link>
     </div>
   );
 };
