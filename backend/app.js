@@ -8,7 +8,7 @@ const list = require("./routes/list.js");
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://todo-qh3mndmkw-aryan-rs-projects.vercel.app',
+  origin: 'todo-one-alpha-50.vercel.app',
   credentials: true
 }));
 

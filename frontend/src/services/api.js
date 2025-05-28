@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://todobackend-ejih1ao6i-aryan-rs-projects.vercel.app';
+const API_BASE_URL = 'todobackend-olive.vercel.app';
 
 
 // Create axios instance with base URL
